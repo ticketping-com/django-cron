@@ -30,6 +30,6 @@ jobs:
       - name: poetry install
         run: poetry install
       - name: django-admin check
-        run: python run python testmanage.py check
+        run: python testmanage.py check
       - name: django-admin test
-        run: python run python testmanage.py test
+        run: python testmanage.py test
