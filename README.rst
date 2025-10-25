@@ -1,30 +1,29 @@
-===========
-django-cron
-===========
+# django-cron
 
-.. image:: https://travis-ci.org/Tivix/django-cron.png
-    :target: https://travis-ci.org/Tivix/django-cron
+django-cron fork of Tivix/django-cron compatible with Django 5 - built for Ticketping
 
+## Local development
 
-.. image:: https://coveralls.io/repos/Tivix/django-cron/badge.png
-    :target: https://coveralls.io/r/Tivix/django-cron?branch=master
+### Pre-requisites
 
+- Python >= 3.11.13
 
-.. image:: https://readthedocs.org/projects/django-cron/badge/?version=latest
-    :target: https://readthedocs.org/projects/django-cron/?badge=latest
+We suggest using [`pyenv`](https://github.com/pyenv/pyenv) to easily manage python versions. Some of the following commands use `pyenv`.
+Use [pyenv-installer](https://github.com/pyenv/pyenv-installer) for easy installation.
 
-Django-cron lets you run Django/Python code on a recurring basis providing basic plumbing to track and execute tasks. The 2 most common ways in which most people go about this is either writing custom python scripts or a management command per cron (leads to too many management commands!). Along with that some mechanism to track success, failure etc. is also usually necesary.
+### Configure local development setup
 
-This app solves both issues to a reasonable extent. This is by no means a replacement for queues like Celery ( http://celeryproject.org/ ) etc.
+- Install and activate python 3.9.10 in the root directory
 
+  - `pyenv install 3.11.13`
+  - `pyenv virtualenv 3.11.13 djcron`
+  - `pyenv local djcron`
 
-Documentation
-=============
-http://django-cron.readthedocs.org/en/latest/
+- Install project requirements
 
-This open-source app is brought to you by Tivix, Inc. ( http://tivix.com/ )
+  - `curl -sSL https://install.python-poetry.org | python -`
+  - `poetry install`
 
-Demo App
-=============
+- Install precommit hook (`pre-commit` should be installed globally on system first)
 
-https://github.com/Tivix/django-crone-demo
+  - `pre-commit install`

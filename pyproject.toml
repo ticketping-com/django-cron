@@ -1,0 +1,33 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "django-cron"
+version = "0.6.0"
+description = "Running python crons in a Django project"
+authors = [
+    "Sumit Chachra <chachra@tivix.com>",
+    "Joren Hammudoglu <jhammudoglu@gmail.com>",
+]
+readme = "README.rst"
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Django",
+]
+repository = "https://github.com/jorenham/django-cron"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = ">=4.2,<6.0"
+
+[tool.poetry.group.dev.dependencies]
+freezegun = "^1.5.1"
+mock = "^5.1.0"

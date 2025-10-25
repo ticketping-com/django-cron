@@ -27,9 +27,9 @@ class DjangoCronJobLock(object):
             * self.silent
         for you. The rest is backend-specific.
         """
-        self.job_name = '.'.join([cron_class.__module__, cron_class.__name__])
+        self.job_name = ".".join([cron_class.__module__, cron_class.__name__])
         self.job_code = cron_class.code
-        self.parallel = getattr(cron_class, 'ALLOW_PARALLEL_RUNS', False)
+        self.parallel = getattr(cron_class, "ALLOW_PARALLEL_RUNS", False)
         self.silent = silent
 
     def lock(self):
@@ -41,7 +41,7 @@ class DjangoCronJobLock(object):
         Here you can optionally call self.notice_lock_failed().
         """
         raise NotImplementedError(
-            'You have to implement lock(self) method for your class'
+            "You have to implement lock(self) method for your class"
         )
 
     def release(self):
@@ -51,7 +51,7 @@ class DjangoCronJobLock(object):
         No need to return anything currently.
         """
         raise NotImplementedError(
-            'You have to implement release(self) method for your class'
+            "You have to implement release(self) method for your class"
         )
 
     def lock_failed_message(self):
