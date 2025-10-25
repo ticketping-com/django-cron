@@ -1,16 +1,17 @@
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
+[project]
 name = "django-cron"
 version = "0.6.0"
 description = "Running python crons in a Django project"
 authors = [
-    "Sumit Chachra <chachra@tivix.com>",
-    "Joren Hammudoglu <jhammudoglu@gmail.com>",
+    {name = "Sumit Chachra", email = "chachra@tivix.com"},
+    {name = "Joren Hammudoglu", email = "jhammudoglu@gmail.com"},
+    {name = "Ravi Ojha", email = "ivarojha@gmail.com"},
 ]
-readme = "README.rst"
+readme = "README.md"
+requires-python = ">=3.8,<4"
+dependencies = [
+    "django (>=4.2,<6.0)",
+]
 classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
@@ -22,12 +23,20 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Framework :: Django",
 ]
-repository = "https://github.com/jorenham/django-cron"
 
-[tool.poetry.dependencies]
-python = "^3.8"
-django = ">=4.2,<6.0"
+[project.urls]
+repository = "https://github.com/ticketping-com/django-cron"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+package-mode = false
+
 
 [tool.poetry.group.dev.dependencies]
-freezegun = "^1.5.1"
-mock = "^5.1.0"
+freezegun = "1.5.1"
+mock = "5.1.0"
