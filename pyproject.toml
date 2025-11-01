@@ -1,6 +1,6 @@
 [project]
-name = "django-cron-django5"
-version = "0.6.0"
+name = "django_cron_django5"
+version = "0.6.1"
 description = "Running python crons in a Django 5 project"
 authors = [
     {name = "Sumit Chachra", email = "chachra@tivix.com"},
@@ -42,6 +42,14 @@ classifiers = [
 Homepage = "https://github.com/ticketping-com/django-cron"
 Repository = "https://github.com/ticketping-com/django-cron"
 "Bug Tracker" = "https://github.com/ticketping-com/django-cron/issues"
+
+[project.optional-dependencies]
+dev = [
+    "freezegun==1.5.1",
+    "mock==5.1.0",
+    "twine==6.2.0",
+    "wheel==0.45.1",
+]
 
 
 [build-system]

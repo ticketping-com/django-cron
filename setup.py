@@ -13,26 +13,21 @@ from setuptools import find_packages
 from setuptools import setup
 
 # Package meta-data.
-NAME = "django-cron-django5"
+NAME = "django_cron_django5"
 DESCRIPTION = "Running python crons in a Django 5 project"
 URL = "https://github.com/ticketping-com/django-cron"
 EMAIL = "ivarojha@gmail.com"
 AUTHOR = "Ravi Ojha"
 REQUIRES_PYTHON = ">=3.9"
-VERSION = "0.6.0"
+VERSION = "0.6.1"
 
+# Note: Dependencies are now defined in pyproject.toml
+# Keep these for backwards compatibility with this script
 REQUIRED = [
     "Django>=4.2,<6.0",
 ]
 
-# What packages are optional?
-EXTRAS = {
-    "dev": [
-        "freezegun==1.5.1",
-        "mock==5.1.0",
-        "twine==6.2.0",
-    ],
-}
+EXTRAS = {}
 
 
 here = os.path.abspath(os.path.dirname(__file__))
