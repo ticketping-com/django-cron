@@ -4,7 +4,7 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/django-cron-django5.svg)](https://pypi.org/project/django-cron-django5/)
 [![Django Versions](https://img.shields.io/badge/django-4.2%20%7C%205.0%20%7C%205.1-blue.svg)](https://www.djangoproject.com/)
 
-A Django app for running scheduled tasks (cron jobs) within your Django project. This is a fork of Tivix/django-cron with full Django 5 compatibility.
+A Django app for running scheduled tasks (cron jobs) within your Django project. This is a fork of Tivix/django-cron with full Django 5 compatibility. Used by [Ticketping](https://ticketping.com/) in production.
 
 ## Features
 
