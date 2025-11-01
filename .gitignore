@@ -8,6 +8,10 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 bin/
 build/
 develop-eggs/
@@ -21,6 +25,10 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Poetry
+poetry.lock
+poetry.toml
 
 # Installer logs
 pip-log.txt

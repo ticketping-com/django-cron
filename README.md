@@ -121,8 +121,7 @@ pyenv local djcron
 2. Install project requirements:
 
 ```bash
-curl -sSL https://install.python-poetry.org | python -
-poetry install
+pip install -r requirements-dev.txt
 ```
 
 3. Install pre-commit hooks (if `pre-commit` is installed globally):

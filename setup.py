@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # flake8: noqa
 # Note: To use the 'upload' functionality of this file, you must:
-#   $ poetry add --group dev twine
+#   $ pip install -r requirements-dev.txt
 import io
 import os
 import sys
@@ -30,6 +30,7 @@ EXTRAS = {
     "dev": [
         "freezegun==1.5.1",
         "mock==5.1.0",
+        "twine==6.2.0",
     ],
 }
 

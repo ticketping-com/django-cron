@@ -1,0 +1,7 @@
+# Include base requirements
+-r requirements.txt
+
+# Development dependencies
+freezegun==1.5.1
+mock==5.1.0
+twine==6.2.0

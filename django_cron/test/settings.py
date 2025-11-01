@@ -65,6 +65,9 @@ DATABASES = {
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
+# Adding this to avoid timezone issues as I don't want to change core lib from Tivix for now
+USE_TZ = False
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,

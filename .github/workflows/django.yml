@@ -21,15 +21,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: pipx install poetry
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - name: poetry check
-        run: poetry check
-      - name: poetry install
-        run: poetry install
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
       - name: django-admin check
-        run: poetry run python testmanage.py check
+        run: python testmanage.py check
       - name: django-admin test
-        run: poetry run python testmanage.py test
+        run: python testmanage.py test
