@@ -1,42 +1,68 @@
 [project]
-name = "django-cron"
+name = "django-cron-django5"
 version = "0.6.0"
-description = "Running python crons in a Django project"
+description = "Running python crons in a Django 5 project"
 authors = [
     {name = "Sumit Chachra", email = "chachra@tivix.com"},
     {name = "Joren Hammudoglu", email = "jhammudoglu@gmail.com"},
     {name = "Ravi Ojha", email = "ivarojha@gmail.com"},
 ]
+maintainers = [
+    {name = "Ravi Ojha", email = "ivarojha@gmail.com"},
+]
 readme = "README.md"
-requires-python = ">=3.8,<4"
+license = "MIT"
+requires-python = ">=3.9"
+keywords = ["django", "cron", "django5", "scheduled tasks", "background jobs"]
 dependencies = [
-    "django (>=4.2,<6.0)",
+    "django>=4.2,<6.0",
 ]
 classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
-    "Framework :: Django",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Systems Administration",
 ]
 
 [project.urls]
-repository = "https://github.com/ticketping-com/django-cron"
+Homepage = "https://github.com/ticketping-com/django-cron"
+Repository = "https://github.com/ticketping-com/django-cron"
+"Bug Tracker" = "https://github.com/ticketping-com/django-cron/issues"
 
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 
-[tool.poetry]
-package-mode = false
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+
+[tool.setuptools.packages.find]
+exclude = ["demo*", "docs*"]
+
+
+[tool.setuptools.package-data]
+"*" = ["*.py"]
 
 
 [tool.poetry.group.dev.dependencies]
 freezegun = "1.5.1"
 mock = "5.1.0"
+twine = "^6.2.0"

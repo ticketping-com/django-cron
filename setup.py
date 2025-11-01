@@ -1,0 +1,154 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# flake8: noqa
+# Note: To use the 'upload' functionality of this file, you must:
+#   $ poetry add --group dev twine
+import io
+import os
+import sys
+from shutil import rmtree
+
+from setuptools import Command
+from setuptools import find_packages
+from setuptools import setup
+
+# Package meta-data.
+NAME = "django-cron-django5"
+DESCRIPTION = "Running python crons in a Django 5 project"
+URL = "https://github.com/ticketping-com/django-cron"
+EMAIL = "ivarojha@gmail.com"
+AUTHOR = "Ravi Ojha"
+REQUIRES_PYTHON = ">=3.9"
+VERSION = "0.6.0"
+
+REQUIRED = [
+    "Django>=4.2,<6.0",
+]
+
+# What packages are optional?
+EXTRAS = {
+    "dev": [
+        "freezegun==1.5.1",
+        "mock==5.1.0",
+    ],
+}
+
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+# Import the README and use it as the long-description.
+# Note: this will only work if 'README.md' is present in your MANIFEST.in file!
+try:
+    with io.open(os.path.join(here, "README.md"), encoding="utf-8") as f:
+        long_description = "\n" + f.read()
+except FileNotFoundError:
+    long_description = DESCRIPTION
+
+# Load the package's __version__.py module as a dictionary.
+about = {}
+if not VERSION:
+    project_slug = NAME.lower().replace("-", "_").replace(" ", "_")
+    with open(os.path.join(here, project_slug, "__version__.py")) as f:
+        exec(f.read(), about)
+else:
+    about["__version__"] = VERSION
+
+
+class UploadCommand(Command):
+    """Support setup.py upload."""
+
+    description = "Build and publish the package."
+    user_options = []
+
+    @staticmethod
+    def status(s):
+        """Prints things in bold."""
+        print("\033[1m{0}\033[0m".format(s))
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        try:
+            self.status("Removing previous builds…")
+            rmtree(os.path.join(here, "dist"))
+        except OSError:
+            pass
+
+        self.status("Building Source and Wheel (universal) distribution…")
+        os.system("{0} setup.py sdist bdist_wheel --universal".format(sys.executable))
+
+        self.status("Uploading the package to PyPI via Twine…")
+        os.system("twine upload dist/*")
+
+        self.status("Pushing git tags…")
+        os.system("git tag v{0}".format(about["__version__"]))
+        os.system("git push --tags")
+
+        sys.exit()
+
+
+setup(
+    name=NAME,
+    version=about["__version__"],
+    description=DESCRIPTION,
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    author=AUTHOR,
+    author_email=EMAIL,
+    maintainer=AUTHOR,
+    maintainer_email=EMAIL,
+    python_requires=REQUIRES_PYTHON,
+    url=URL,
+    project_urls={
+        "Homepage": "https://github.com/ticketping-com/django-cron",
+        "Repository": "https://github.com/ticketping-com/django-cron",
+        "Bug Tracker": "https://github.com/ticketping-com/django-cron/issues",
+    },
+    packages=find_packages(
+        exclude=[
+            "demo",
+            "demo.*",
+            "docs",
+            "docs.*",
+            "tests",
+            "*.tests",
+            "*.tests.*",
+            "tests.*",
+        ]
+    ),
+    install_requires=REQUIRED,
+    extras_require=EXTRAS,
+    include_package_data=True,
+    zip_safe=False,
+    license="MIT",
+    keywords=["django", "cron", "django5", "scheduled tasks", "background jobs"],
+    classifiers=[
+        # Trove classifiers
+        # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Web Environment",
+        "Framework :: Django",
+        "Framework :: Django :: 4.2",
+        "Framework :: Django :: 5.0",
+        "Framework :: Django :: 5.1",
+        "Intended Audience :: Developers",
+        "Intended Audience :: System Administrators",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Topic :: Software Development",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: System :: Systems Administration",
+    ],
+    # $ setup.py publish support.
+    cmdclass={"upload": UploadCommand},
+)

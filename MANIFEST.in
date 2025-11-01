@@ -1,0 +1,21 @@
+include README.md
+include LICENSE
+include pyproject.toml
+include setup.py
+include setup.cfg
+
+# Include all Python files in the django_cron package
+recursive-include django_cron *.py
+
+# Include migrations
+recursive-include django_cron/migrations *.py
+
+# Exclude test files and cache
+recursive-exclude django_cron/test *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude * .DS_Store
+
+# Exclude demo and docs from distribution
+prune demo
+prune docs
