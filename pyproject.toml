@@ -1,6 +1,6 @@
 [project]
 name = "django_cron_django5"
-version = "0.6.1"
+version = "0.6.2"
 description = "Running python crons in a Django 5 project"
 authors = [
     {name = "Sumit Chachra", email = "chachra@tivix.com"},

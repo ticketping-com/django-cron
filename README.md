@@ -64,16 +64,61 @@ CRON_CLASSES = [
 ]
 ```
 
-Run cron jobs:
+Run cron jobs via `crontab` or similar. This is the most simplest and efficient way.
 
 ```bash
 python manage.py runcrons
 ```
 
-For continuous execution, use:
+If you'd prefer to run via `systemd` or similar, use `cronloop`.
 
 ```bash
 python manage.py cronloop
+```
+
+Here's an example service file
+
+```ini
+[Unit]
+Description=Django Cron Loop Service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/loc-backend
+Environment="PATH=/home/ubuntu/.pyenv/versions/locenv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONUNBUFFERED=1"
+
+# THE KEY CHANGES - Add these:
+
+# Limit total iterations, then restart (prevents memory leaks)
+# Runs ~50 times (50 * 2 min = 100 minutes) then restarts
+ExecStart=/home/ubuntu/.pyenv/versions/locenv/bin/python manage.py cronloop --sleep 120
+
+# Set memory limits (adjust based on your server)
+MemoryMax=512M
+MemoryHigh=400M
+
+# Always restart when process exits
+Restart=always
+RestartSec=10
+
+# Restart every 2 hours regardless (prevents long-term memory leaks)
+RuntimeMaxSec=7200
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=django-cronloop
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 ## Requirements

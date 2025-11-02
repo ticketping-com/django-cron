@@ -19,7 +19,7 @@ URL = "https://github.com/ticketping-com/django-cron"
 EMAIL = "ivarojha@gmail.com"
 AUTHOR = "Ravi Ojha"
 REQUIRES_PYTHON = ">=3.9"
-VERSION = "0.6.1"
+VERSION = "0.6.2"
 
 # Note: Dependencies are now defined in pyproject.toml
 # Keep these for backwards compatibility with this script
