@@ -15,7 +15,7 @@ license = {text = "MIT"}
 requires-python = ">=3.9"
 keywords = ["django", "cron", "django5", "scheduled tasks", "background jobs"]
 dependencies = [
-    "django>=4.2,<6.0",
+    "django>=4.2,<7.0",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -24,6 +24,7 @@ classifiers = [
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.0",
     "Framework :: Django :: 5.1",
+    "Framework :: Django :: 6.0",
     "Intended Audience :: Developers",
     "Intended Audience :: System Administrators",
     "Operating System :: OS Independent",
