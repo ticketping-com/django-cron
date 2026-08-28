@@ -5,7 +5,7 @@ from .core import CronJobBase
 from .core import CronJobManager
 from .core import Schedule
 
-__version__ = "0.6.0"
+__version__ = "0.6.3"
 
 __all__ = (
     "DEFAULT_LOCK_BACKEND",

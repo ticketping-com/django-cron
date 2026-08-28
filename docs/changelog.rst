@@ -1,5 +1,10 @@
 Changelog
 =========
+0.6.3
+------
+
+    - Switch development and publishing to uv
+
 0.6.0
 ------
 
