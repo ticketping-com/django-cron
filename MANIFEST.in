@@ -1,7 +1,6 @@
 include README.md
 include LICENSE
 include pyproject.toml
-include setup.py
 include setup.cfg
 
 # Include all Python files in the django_cron package

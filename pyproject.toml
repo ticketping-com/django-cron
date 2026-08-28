@@ -11,7 +11,8 @@ maintainers = [
     {name = "Ravi Ojha", email = "ivarojha@gmail.com"},
 ]
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.9"
 keywords = ["django", "cron", "django5", "scheduled tasks", "background jobs"]
 dependencies = [
@@ -44,18 +45,26 @@ Homepage = "https://github.com/ticketping-com/django-cron"
 Repository = "https://github.com/ticketping-com/django-cron"
 "Bug Tracker" = "https://github.com/ticketping-com/django-cron/issues"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "freezegun==1.5.1",
     "mock==5.1.0",
-    "twine==6.2.0",
-    "wheel==0.45.1",
 ]
 
 
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
+
+
+[tool.uv]
+package = true
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
 
 
 [tool.setuptools]

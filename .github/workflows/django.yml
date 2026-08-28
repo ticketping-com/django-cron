@@ -17,16 +17,19 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python: [3.9, 3.12]
+        python: ["3.9", "3.12"]
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10
         with:
+          version: "0.11.28"
           python-version: ${{ matrix.python }}
+          enable-cache: true
       - name: Install dependencies
-        run: pip install -r requirements-dev.txt
+        run: uv sync --locked --group dev
       - name: django-admin check
-        run: python testmanage.py check
+        run: uv run python testmanage.py check
       - name: django-admin test
-        run: python testmanage.py test
+        run: uv run python testmanage.py test

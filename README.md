@@ -2,7 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/django-cron-django5.svg)](https://badge.fury.io/py/django-cron-django5)
 [![Python Versions](https://img.shields.io/pypi/pyversions/django-cron-django5.svg)](https://pypi.org/project/django-cron-django5/)
-[![Django Versions](https://img.shields.io/badge/django-4.2%20%7C%205.0%20%7C%205.1-blue.svg)](https://www.djangoproject.com/)
+[![Django Versions](https://img.shields.io/badge/django-4.2%20%7C%205.0%20%7C%205.1%20%7C%206.0-blue.svg)](https://www.djangoproject.com/)
 
 A Django app for running scheduled tasks (cron jobs) within your Django project. This is a fork of Tivix/django-cron with full Django 5 compatibility. Used by [Ticketping](https://ticketping.com/) in production.
 
@@ -21,6 +21,12 @@ Install from PyPI:
 
 ```bash
 pip install django-cron-django5
+```
+
+Or with [uv](https://docs.astral.sh/uv/):
+
+```bash
+uv add django-cron-django5
 ```
 
 Add `django_cron` to your `INSTALLED_APPS`:
@@ -124,7 +130,7 @@ WantedBy=multi-user.target
 ## Requirements
 
 - Python >= 3.9
-- Django >= 4.2, < 6.0
+- Django >= 4.2, < 7.0
 
 ## Documentation
 
@@ -149,34 +155,27 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ### Pre-requisites
 
-- Python >= 3.9
-
-We suggest using [`pyenv`](https://github.com/pyenv/pyenv) to easily manage python versions.
+- [uv](https://docs.astral.sh/uv/installation/)
+- Python >= 3.9 (uv will install it if needed)
 
 ### Configure local development setup
 
-1. Install and activate python:
+1. Sync the project environment (creates `.venv`, installs the package and dev dependencies from `uv.lock`):
 
 ```bash
-pyenv install 3.11.13
-pyenv virtualenv 3.11.13 djcron
-pyenv local djcron
+uv sync
 ```
 
-2. Install project requirements:
+2. Install pre-commit hooks:
 
 ```bash
-pip install -r requirements-dev.txt
-```
-
-3. Install pre-commit hooks (if `pre-commit` is installed globally):
-
-```bash
-pre-commit install
+uvx pre-commit install
 ```
 
 ## Running Tests
 
 ```bash
-python testmanage.py test django_cron
+uv run python testmanage.py test django_cron
 ```
+
+`uv run` uses the project environment, so you do not need to activate `.venv` first.

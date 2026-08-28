@@ -1,7 +1,13 @@
 Installation
 ============
 
-1. Install ``django_cron`` (ideally in your virtualenv!) using pip or simply getting a copy of the code and putting it in a directory in your codebase.
+1. Install ``django-cron-django5`` (ideally in your virtualenv!) with pip or uv, or copy the code into your project:
+
+   .. code-block:: bash
+
+       pip install django-cron-django5
+       # or
+       uv add django-cron-django5
 
 2. Add ``django_cron`` to your Django settings ``INSTALLED_APPS``:
 

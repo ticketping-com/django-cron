@@ -1,67 +1,90 @@
 # Publishing Guide
 
-This guide explains how to publish `django-cron-django5` to PyPI.
+This guide explains how to publish `django-cron-django5` to PyPI using [uv](https://docs.astral.sh/uv/).
 
 ## Prerequisites
 
-1. Create accounts on:
+1. Install [uv](https://docs.astral.sh/uv/installation/).
+
+2. Create accounts on:
    - [PyPI](https://pypi.org/) (production)
    - [TestPyPI](https://test.pypi.org/) (for testing)
 
-2. Install build tools (already done):
+3. Create an API token on PyPI (and TestPyPI if you will upload there). PyPI no longer accepts username/password uploads.
+
+   Store the token in `.env` at the repo root (gitignored):
+
    ```bash
-   pip install --upgrade build twine
+   UV_PUBLISH_TOKEN=pypi-...
    ```
+
+   Load it into your shell before any `uv publish` command:
+
+   ```bash
+   set -a && source .env && set +a
+   ```
+
+   `uv publish` reads `UV_PUBLISH_TOKEN` automatically. Do not pass `--token` on the command line.
 
 ## Building the Package
 
 1. Clean previous builds:
+
    ```bash
    rm -rf dist build *.egg-info django_cron_django5.egg-info
    ```
 
-2. Build the package:
+2. Build the sdist and wheel:
+
    ```bash
-   python -m build
+   uv build --no-sources
    ```
 
-3. Verify the build:
-   ```bash
-   python -m twine check dist/*
-   ```
+   Artifacts are written to `dist/`. `--no-sources` ensures the build does not depend on local `tool.uv.sources` overrides.
 
 ## Publishing to TestPyPI (Recommended First)
 
-Test your package on TestPyPI before publishing to the real PyPI:
+TestPyPI is configured as a named index in `pyproject.toml`. Upload with:
 
 ```bash
-python -m twine upload --repository testpypi dist/*
+set -a && source .env && set +a
+uv publish --index testpypi
 ```
 
-You'll be prompted for your TestPyPI username and password.
+Use a TestPyPI token in `.env` for this step (`UV_PUBLISH_TOKEN` from test.pypi.org), not the production PyPI token.
 
 ### Testing the TestPyPI Package
 
-Install from TestPyPI to verify:
+Install from TestPyPI to verify. `--extra-index-url` is needed because dependencies (like Django) are on the main PyPI:
 
 ```bash
-pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ django-cron-django5
+uv pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ django-cron-django5
 ```
 
-Note: `--extra-index-url` is needed because dependencies (like Django) are on the main PyPI.
+Or import-check without using the local project:
+
+```bash
+uv run --with django-cron-django5 --no-project --refresh-package django-cron-django5 -- python -c "import django_cron"
+```
 
 ## Version Management
 
 Before publishing a new version:
 
-1. Update the version number in:
-   - `pyproject.toml` (line 3)
-   - `setup.py` (line 17)
-   - `django_cron/__init__.py` (line 8)
+1. Bump the version in `pyproject.toml` with uv:
 
-2. Update the changelog/release notes
+   ```bash
+   uv version --bump patch    # 0.6.2 -> 0.6.3
+   # or: uv version --bump minor
+   # or: uv version 0.7.0
+   ```
 
-3. Commit the changes:
+2. Keep `django_cron/__init__.py` (`__version__`) in sync with `pyproject.toml`.
+
+3. Update the changelog/release notes.
+
+4. Commit the changes:
+
    ```bash
    git add .
    git commit -m "Release version X.Y.Z"
@@ -69,7 +92,17 @@ Before publishing a new version:
    git push origin master --tags
    ```
 
-4. Build and publish
+5. Build and publish.
+
+## Publishing to PyPI
+
+```bash
+uv build --no-sources
+set -a && source .env && set +a
+uv publish
+```
+
+`uv publish` uploads `dist/` to PyPI by default, using `UV_PUBLISH_TOKEN` from `.env`.
 
 ## Verifying the Published Package
 
@@ -77,6 +110,13 @@ After publishing, verify the package page on PyPI:
 - https://pypi.org/project/django-cron-django5/
 
 Test installation:
+
+```bash
+uv add django-cron-django5
+```
+
+or:
+
 ```bash
 pip install django-cron-django5
 ```
@@ -84,19 +124,20 @@ pip install django-cron-django5
 ## Troubleshooting
 
 ### "File already exists" error
-This happens when you try to upload a version that already exists on PyPI. You must increment the version number.
+This happens when you try to upload a version that already exists on PyPI. You must increment the version number. `uv publish` will skip files that are identical to ones already on PyPI, so you can retry the same command after a partial upload.
 
 ### Authentication errors
-- Verify your credentials
-- Check if 2FA is enabled (must use API tokens if it is)
-- Ensure `~/.pypirc` file has correct permissions (600)
+- Confirm `.env` contains `UV_PUBLISH_TOKEN` and you ran `set -a && source .env && set +a` in the same shell
+- Use a PyPI API token, not a password
+- Check if 2FA is enabled (tokens are required)
+- For GitHub Actions, prefer [Trusted Publishing](https://docs.pypi.org/trusted-publishers/) instead of storing a token in `.env` or secrets files
 
 ### Package not found after upload
 - Wait a few minutes for PyPI to index the package
-- Clear pip cache: `pip cache purge`
+- Refresh uv's cache: `uv cache clean`
 
 ## Additional Resources
 
-- [PyPI Publishing Guide](https://packaging.python.org/tutorials/packaging-projects/)
-- [Twine Documentation](https://twine.readthedocs.io/)
+- [uv: Building and publishing a package](https://docs.astral.sh/uv/guides/package/)
+- [uv: Using uv in GitHub Actions](https://docs.astral.sh/uv/guides/integration/github/)
 - [Python Packaging User Guide](https://packaging.python.org/)
